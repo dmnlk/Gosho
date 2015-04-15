@@ -4,11 +4,20 @@ import (
 	"fmt"
 	"os"
 	"github.com/dmnlk/stringUtils"
+	"net/http"
+	"io"
+	"bytes"
 )
 
 const (
 	API_URL=" https://www.googleapis.com/urlshortener/v1/url"
 )
+type Response struct {
+	kind string `kind`
+	id string `id`
+	longUrl string `longUrl`
+
+}
 
 func main() {
 	key, err := getGoogleAPIKey()
@@ -19,6 +28,8 @@ func main() {
 }
 
 func requestAPI(url string) string {
+	buf := bytes.NewBuffer()
+	http.Post(url, "application/json", buf)
 	return ""
 } 
 func getGoogleAPIKey() (string, error) {
