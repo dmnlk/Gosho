@@ -6,8 +6,16 @@ import (
 	"github.com/dmnlk/stringUtils"
 )
 
+const (
+	API_URL=" https://www.googleapis.com/urlshortener/v1/url"
+)
+
 func main() {
-	fmt.Println("a")
+	key, err := getGoogleAPIKey()
+	if err != nil {
+		return
+	}
+	fmt.Println(key)
 }
 
 func getGoogleAPIKey() (string, error) {
