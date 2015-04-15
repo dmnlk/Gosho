@@ -18,6 +18,9 @@ func main() {
 	fmt.Println(key)
 }
 
+func requestAPI(url string) string {
+	return ""
+} 
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
 	if stringUtils.IsEmpty(api_key) {
