@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 
+	"io/ioutil"
+
 	"github.com/dmnlk/stringUtils"
 )
 
@@ -25,14 +27,19 @@ func main() {
 	if err != nil {
 		return
 	}
-	requestAPI("http://twitter.com")
+	requestAPI("http://twitter.com", key)
 }
 
 func requestAPI(url string, apikey string) string {
 	res := Response{}
 	v, _ := json.Marshal(res)
 	buf := bytes.NewBuffer(v)
-	http.Post(url, "application/json", buf)
+	resp, err := http.Post(url+"?"+apikey, "application/json", buf)
+	if err != nil {
+		fmt.Println(err)
+	}
+	a, _ := ioutil.ReadAll(resp)
+	fmt.Println(string(a))
 	return ""
 }
 func getGoogleAPIKey() (string, error) {
