@@ -1,22 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"github.com/dmnlk/stringUtils"
-	"net/http"
-	"io"
 	"bytes"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+
+	"github.com/dmnlk/stringUtils"
 )
 
 const (
-	API_URL=" https://www.googleapis.com/urlshortener/v1/url"
+	API_URL = " https://www.googleapis.com/urlshortener/v1/url"
 )
-type Response struct {
-	kind string `kind`
-	id string `id`
-	longUrl string `longUrl`
 
+type Response struct {
+	kind    string `kind`
+	id      string `id`
+	longUrl string `longUrl`
 }
 
 func main() {
@@ -24,14 +25,16 @@ func main() {
 	if err != nil {
 		return
 	}
-	fmt.Println(key)
+	requestAPI("http://twitter.com")
 }
 
-func requestAPI(url string) string {
-	buf := bytes.NewBuffer()
+func requestAPI(url string, apikey string) string {
+	res := Response{}
+	v, _ := json.Marshal(res)
+	buf := bytes.NewBuffer(v)
 	http.Post(url, "application/json", buf)
 	return ""
-} 
+}
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
 	if stringUtils.IsEmpty(api_key) {
