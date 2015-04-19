@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 
 	"net/http"
@@ -34,6 +35,7 @@ func main() {
 func requestAPI(urli string, apikey string) string {
 	p := url.Values{}
 	p.Add("longUrl", urli)
+//	p.Add("api_key", apikey)
 	req, err := http.NewRequest("POST", API_URL, strings.NewReader(p.Encode()))
 	if err != nil {
 		fmt.Println(err)
@@ -49,7 +51,11 @@ func requestAPI(urli string, apikey string) string {
 		return ""
 	}
 	defer resp.Body.Close()
-	pp.Print(resp.Body)
+	// ioutil.readallでバイト配列にする
+	val, err := ioutil.ReadAll(resp.Body)
+
+	// バイト配列を文字列にして表示する
+	pp.Print(string(val))
 	return ""
 }
 func getGoogleAPIKey() (string, error) {
