@@ -7,10 +7,10 @@ import (
 
 	"net/http"
 	"net/url"
-	"strings"
 
 	"github.com/dmnlk/stringUtils"
 	"github.com/k0kubun/pp"
+	"strings"
 )
 
 const (
@@ -41,12 +41,16 @@ func requestAPI(urli string, apikey string) (string, error) {
 	p := url.Values{}
 	p.Add("longUrl", urli)
 	//p.Add("key", apikey)
+
+	//resp, err := http.PostForm(API_URL+"?key="+apikey, p)
+
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, strings.NewReader(p.Encode()))
+	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		return "", err
 	}
 	pp.Print(req)
-	req.Header.Add("Content-Type", "application/json")
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
