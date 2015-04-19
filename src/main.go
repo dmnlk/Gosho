@@ -29,25 +29,28 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	requestAPI("https://developers.google.com/url-shortener/v1/getting_started", key)
+	st, err := requestAPI("https://developers.google.com/url-shortener/v1/getting_started", key)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(st)
 }
 
-func requestAPI(urli string, apikey string) string {
+func requestAPI(urli string, apikey string) (string, error) {
 	p := url.Values{}
 	p.Add("longUrl", urli)
 	//p.Add("key", apikey)
-	req, err := http.NewRequest("POST", API_URL+"?"+apikey, strings.NewReader(p.Encode()))
+	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, strings.NewReader(p.Encode()))
 	if err != nil {
-		fmt.Println(err)
-		return ""
+		return "", err
 	}
 	pp.Print(req)
 	req.Header.Add("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
-		return ""
+		return "", err
 	}
 	defer resp.Body.Close()
 	// ioutil.readallでバイト配列にする
@@ -55,7 +58,7 @@ func requestAPI(urli string, apikey string) string {
 
 	// バイト配列を文字列にして表示する
 	pp.Print(string(val))
-	return ""
+	return string(val), nil
 }
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
