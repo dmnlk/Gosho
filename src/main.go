@@ -29,14 +29,14 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	requestAPI("http://twitter.com", key)
+	requestAPI("https://developers.google.com/url-shortener/v1/getting_started", key)
 }
 
 func requestAPI(urli string, apikey string) string {
 	p := url.Values{}
 	p.Add("longUrl", urli)
-//	p.Add("api_key", apikey)
-	req, err := http.NewRequest("POST", API_URL, strings.NewReader(p.Encode()))
+	//p.Add("key", apikey)
+	req, err := http.NewRequest("POST", API_URL+"?"+apikey, strings.NewReader(p.Encode()))
 	if err != nil {
 		fmt.Println(err)
 		return ""
@@ -45,7 +45,6 @@ func requestAPI(urli string, apikey string) string {
 	req.Header.Add("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	fmt.Println("do")
 	if err != nil {
 		fmt.Println(err)
 		return ""
