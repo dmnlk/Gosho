@@ -1,15 +1,12 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 
-	"io/ioutil"
-
 	"github.com/dmnlk/stringUtils"
+	"github.com/k0kubun/pp"
 )
 
 const (
@@ -31,15 +28,13 @@ func main() {
 }
 
 func requestAPI(url string, apikey string) string {
-	res := Response{}
-	v, _ := json.Marshal(res)
-	buf := bytes.NewBuffer(v)
-	resp, err := http.Post(url+"?"+apikey, "application/json", buf)
+
+	resp, err := http.Post(url+"?"+apikey, "application/json", nil)
 	if err != nil {
 		fmt.Println(err)
 	}
-	a, _ := ioutil.ReadAll(resp)
-	fmt.Println(string(a))
+	fmt.Println("a")
+	pp.Print(resp)
 	return ""
 }
 func getGoogleAPIKey() (string, error) {
