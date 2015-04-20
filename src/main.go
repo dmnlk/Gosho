@@ -41,13 +41,12 @@ func requestAPI(urli string, apikey string) (string, error) {
 	p := url.Values{}
 	p.Add("longUrl", urli)
 	var jsonStr = []byte(`{"longUrl":"` + urli + `"}`)
-	pp.Print(string(jsonStr))
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		return "", err
 	}
-	pp.Print(req)
+
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -59,7 +58,6 @@ func requestAPI(urli string, apikey string) (string, error) {
 	val, err := ioutil.ReadAll(resp.Body)
 
 	// バイト配列を文字列にして表示する
-	pp.Print(string(val))
 	return string(val), nil
 }
 func getGoogleAPIKey() (string, error) {
