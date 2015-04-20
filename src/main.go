@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -10,7 +11,6 @@ import (
 
 	"github.com/dmnlk/stringUtils"
 	"github.com/k0kubun/pp"
-	"strings"
 )
 
 const (
@@ -43,8 +43,8 @@ func requestAPI(urli string, apikey string) (string, error) {
 	//p.Add("key", apikey)
 
 	//resp, err := http.PostForm(API_URL+"?key="+apikey, p)
-
-	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, strings.NewReader(p.Encode()))
+	var jsonStr = []byte(`{"longUrl":"https://developers.google.com/url-shortener/v1/getting_started"}`)
+	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		return "", err
