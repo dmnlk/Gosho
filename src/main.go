@@ -40,10 +40,8 @@ func main() {
 func requestAPI(urli string, apikey string) (string, error) {
 	p := url.Values{}
 	p.Add("longUrl", urli)
-	//p.Add("key", apikey)
-
-	//resp, err := http.PostForm(API_URL+"?key="+apikey, p)
-	var jsonStr = []byte(`{"longUrl":"https://developers.google.com/url-shortener/v1/getting_started"}`)
+	var jsonStr = []byte(`{"longUrl":"` + urli + `"}`)
+	pp.Print(string(jsonStr))
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
