@@ -12,7 +12,6 @@ import (
 	"encoding/json"
 
 	"github.com/dmnlk/stringUtils"
-	"github.com/k0kubun/pp"
 )
 
 const (
@@ -20,9 +19,9 @@ const (
 )
 
 type GoogleResponse struct {
-	kind    string `json:"kind"`
-	id      string `json:"id"`
-	longUrl string `json:"longUrl"`
+	Kind    string `json:"kind"`
+	Id      string `json:"id"`
+	LongUrl string `json:"longUrl"`
 }
 
 func main() {
@@ -56,24 +55,13 @@ func requestAPI(urli string, apikey string) (string, error) {
 		return "", err
 	}
 	defer resp.Body.Close()
-	// ioutil.readallでバイト配列にする
+
 	val, err := ioutil.ReadAll(resp.Body)
 
 	var res GoogleResponse
 	json.Unmarshal(val, &res)
-	pp.Print(res)
-	pp.Print(string(val))
 
-	var result interface{}
-	json.Unmarshal(val, &result)
-	pp.Print(result)
-
-	b := json.NewDecoder(val)
-	b.Decode(&res)
-
-	pp.Print(res)
-	// バイト配列を文字列にして表示する
-	return res.id, nil
+	return res.Id, nil
 }
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
