@@ -31,6 +31,9 @@ func main() {
 		return
 	}
 	st, err := requestAPI("https://developers.google.com/url-shortener/v1/getting_started", key)
+	if len(os.Args) == 1 {
+		return
+	}
 	if err != nil {
 		fmt.Println(err)
 		return
