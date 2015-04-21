@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"net/url"
 
+	"encoding/json"
+
 	"github.com/dmnlk/stringUtils"
 	"github.com/k0kubun/pp"
 )
@@ -17,10 +19,10 @@ const (
 	API_URL = "https://www.googleapis.com/urlshortener/v1/url"
 )
 
-type Response struct {
-	kind    string `kind`
-	id      string `id`
-	longUrl string `longUrl`
+type GoogleResponse struct {
+	kind    string `json:"kind"`
+	id      string `json:"id"`
+	longUrl string `json:"longUrl"`
 }
 
 func main() {
@@ -34,6 +36,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
 	fmt.Println(st)
 }
 
@@ -47,7 +50,6 @@ func requestAPI(urli string, apikey string) (string, error) {
 		return "", err
 	}
 
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -57,8 +59,21 @@ func requestAPI(urli string, apikey string) (string, error) {
 	// ioutil.readallでバイト配列にする
 	val, err := ioutil.ReadAll(resp.Body)
 
+	var res GoogleResponse
+	json.Unmarshal(val, &res)
+	pp.Print(res)
+	pp.Print(string(val))
+
+	var result interface{}
+	json.Unmarshal(val, &result)
+	pp.Print(result)
+
+	b := json.NewDecoder(val)
+	b.Decode(&res)
+
+	pp.Print(res)
 	// バイト配列を文字列にして表示する
-	return string(val), nil
+	return res.id, nil
 }
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
