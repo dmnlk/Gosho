@@ -24,6 +24,7 @@ type GoogleResponse struct {
 	LongUrl string `json:"longUrl"`
 }
 
+// require argument
 func main() {
 	key, err := getGoogleAPIKey()
 	if err != nil {
