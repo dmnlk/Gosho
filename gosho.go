@@ -71,7 +71,7 @@ func requestAPI(urli string, apikey string) (string, error) {
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
 	if stringUtils.IsEmpty(api_key) {
-		return "", fmt.Errorf("not found api_key")
+		return "", fmt.Errorf("api_key not found")
 	}
 	return api_key, nil
 }
