@@ -35,7 +35,7 @@ func main() {
 		return
 	}
 
-	st, err := requestAPI(os.Args[1], key)
+	st, err := requestGoogleUrlShortenerApi(os.Args[1], key)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -44,7 +44,7 @@ func main() {
 	fmt.Println(st)
 }
 
-func requestAPI(urli string, apikey string) (string, error) {
+func requestGoogleUrlShortenerApi(urli string, apikey string) (string, error) {
 	p := url.Values{}
 	p.Add("longUrl", urli)
 	var jsonStr = []byte(`{"longUrl":"` + urli + `"}`)
