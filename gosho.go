@@ -44,10 +44,10 @@ func main() {
 	fmt.Println(st)
 }
 
-func requestGoogleUrlShortenerApi(urli string, apikey string) (string, error) {
+func requestGoogleUrlShortenerApi(originalUrl string, apikey string) (string, error) {
 	p := url.Values{}
-	p.Add("longUrl", urli)
-	var jsonStr = []byte(`{"longUrl":"` + urli + `"}`)
+	p.Add("longUrl", originalUrl)
+	var jsonStr = []byte(`{"longUrl":"` + originalUrl + `"}`)
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
