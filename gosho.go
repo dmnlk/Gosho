@@ -41,7 +41,7 @@ func main() {
 		return
 	}
 
-	fmt.Println(st)
+	fmt.Println("Google: "+st)
 }
 
 func requestGoogleUrlShortenerApi(originalUrl string, apikey string) (string, error) {
