@@ -96,10 +96,11 @@ func getGoogleAPIKey() (string, error) {
 
 func requestBitlyApi(originalUrl string, apikey string) (string, error) {
 	//https://api-ssl.bitly.com/v3/shorten?access_token=ACCESS_TOKEN&longUrl=短縮したいURL
-	req, err := http.NewRequest("POST", BITLY_URL+"?access_token="+apikey+"&longUrl"+originalUrl, nil)
+	req, err := http.NewRequest("GET", BITLY_URL+"?access_token="+apikey+"&longUrl="+originalUrl, nil)
 	if err != nil {
 		return "", err
 	}
+	pp.Print(req)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
