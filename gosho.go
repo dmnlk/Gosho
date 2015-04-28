@@ -48,7 +48,14 @@ func main() {
 		return
 	}
 
+	bitlyUrl, err := requestBitlyApi(os.Args[1], key)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	fmt.Println("Google: "+st)
+	fmt.Println("bit.ly: "+bitlyUrl)
 }
 
 func requestGoogleUrlShortenerApi(originalUrl string, apikey string) (string, error) {
