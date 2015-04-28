@@ -11,18 +11,22 @@ import (
 	"encoding/json"
 
 	"github.com/dmnlk/stringUtils"
-	"strings"
-	"github.com/go-lang-plugin-org/go-lang-idea-plugin/testdata/parsing/statements/go"
+	"github.com/k0kubun/pp"
 )
 
 const (
 	API_URL = "https://www.googleapis.com/urlshortener/v1/url"
+	BITLY_URL = "https://api-ssl.bitly.com/v3/shorten"
 )
 
 type GoogleResponse struct {
 	Kind    string `json:"kind"`
 	Id      string `json:"id"`
 	LongUrl string `json:"longUrl"`
+}
+
+type BitlyResponse struct {
+
 }
 
 // require argument
@@ -55,8 +59,8 @@ func main() {
 		return
 	}
 
-	fmt.Println("Google: "+googleUrl)
-	fmt.Println("bit.ly: "+bitlyUrl)
+	fmt.Println("Google: " + googleUrl)
+	fmt.Println("bit.ly: " + bitlyUrl)
 }
 
 func requestGoogleUrlShortenerApi(originalUrl string, apikey string) (string, error) {
@@ -91,10 +95,23 @@ func getGoogleAPIKey() (string, error) {
 }
 
 func requestBitlyApi(originalUrl string, apikey string) (string, error) {
+	//https://api-ssl.bitly.com/v3/shorten?access_token=ACCESS_TOKEN&longUrl=短縮したいURL
+	req, err := http.NewRequest("POST", BITLY_URL+"?access_token="+apikey+"&longUrl"+originalUrl, nil)
+	if err != nil {
+		return "", err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	val, err := ioutil.ReadAll(resp.Body)
+	pp.Print(string(val))
 	return "", nil
 }
-
-
 
 func getBitlyAPIKey() (string, error) {
 	api_key := os.Getenv("BITLY_API_KEY")
