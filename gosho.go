@@ -31,6 +31,13 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	bitlyKey, err := getBitlyAPIKey()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	if len(os.Args) == 1 {
 		return
 	}
@@ -74,6 +81,12 @@ func getGoogleAPIKey() (string, error) {
 	}
 	return api_key, nil
 }
+
+func requestBitlyApi(originalUrl string, apikey string) (string, error) {
+	return "", nil
+}
+
+
 
 func getBitlyAPIKey() (string, error) {
 	api_key := os.Getenv("BITLY_API_KEY")
