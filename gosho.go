@@ -12,6 +12,7 @@ import (
 
 	"github.com/dmnlk/stringUtils"
 	"strings"
+	"github.com/go-lang-plugin-org/go-lang-idea-plugin/testdata/parsing/statements/go"
 )
 
 const (
@@ -42,19 +43,19 @@ func main() {
 		return
 	}
 
-	st, err := requestGoogleUrlShortenerApi(os.Args[1], key)
+	googleUrl, err := requestGoogleUrlShortenerApi(os.Args[1], key)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	bitlyUrl, err := requestBitlyApi(os.Args[1], key)
+	bitlyUrl, err := requestBitlyApi(os.Args[1], bitlyKey)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println("Google: "+st)
+	fmt.Println("Google: "+googleUrl)
 	fmt.Println("bit.ly: "+bitlyUrl)
 }
 
