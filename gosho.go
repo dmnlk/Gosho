@@ -11,6 +11,7 @@ import (
 	"encoding/json"
 
 	"github.com/dmnlk/stringUtils"
+	"strings"
 )
 
 const (
@@ -65,8 +66,17 @@ func requestGoogleUrlShortenerApi(originalUrl string, apikey string) (string, er
 
 	return res.Id, nil
 }
+
 func getGoogleAPIKey() (string, error) {
 	api_key := os.Getenv("GOOGLE_API_KEY")
+	if stringUtils.IsEmpty(api_key) {
+		return "", fmt.Errorf("api_key not found")
+	}
+	return api_key, nil
+}
+
+func getBitlyAPIKey() (string, error) {
+	api_key := os.Getenv("BITLY_API_KEY")
 	if stringUtils.IsEmpty(api_key) {
 		return "", fmt.Errorf("api_key not found")
 	}
