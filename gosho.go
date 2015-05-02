@@ -18,6 +18,12 @@ const (
 	BITLY_URL = "https://api-ssl.bitly.com/v3/shorten"
 )
 
+type Client struct {
+	
+}
+
+
+
 type GoogleResponse struct {
 	Kind    string `json:"kind"`
 	Id      string `json:"id"`
