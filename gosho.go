@@ -23,7 +23,7 @@ type Client struct {
 }
 
 func (c Client) NewClient() *Client {
-	return Client{}
+	return *Client{}
 }
 
 
