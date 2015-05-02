@@ -47,40 +47,6 @@ type Data struct {
 	NewHash    int64  `json:"new_hash"`
 }
 
-// require argument
-func main() {
-	key, err := getGoogleAPIKey()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	bitlyKey, err := getBitlyAPIKey()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	if len(os.Args) == 1 {
-		return
-	}
-
-	googleUrl, err := requestGoogleUrlShortenerApi(os.Args[1], key)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	bitlyUrl, err := requestBitlyApi(os.Args[1], bitlyKey)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Println("Google: " + googleUrl)
-	fmt.Println("bit.ly: " + bitlyUrl)
-}
-
 func (c *Client)requestGoogleUrlShortenerApi(originalUrl string, apikey string) (string, error) {
 	var jsonStr = []byte(`{"longUrl":"` + originalUrl + `"}`)
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
