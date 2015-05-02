@@ -22,7 +22,7 @@ type Client struct {
 
 }
 
-func (c Client) NewClient() *Client {
+func NewClient() *Client {
 	return *Client{}
 }
 
