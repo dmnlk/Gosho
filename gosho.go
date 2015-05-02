@@ -19,9 +19,12 @@ const (
 )
 
 type Client struct {
-	
+
 }
 
+func (c Client) newClient() *Client {
+	return Client{}
+}
 
 
 type GoogleResponse struct {
