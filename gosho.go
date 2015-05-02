@@ -2,15 +2,11 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
-	"os"
 
 	"net/http"
 
 	"encoding/json"
-
-	"github.com/dmnlk/stringUtils"
 )
 
 const (
@@ -19,13 +15,11 @@ const (
 )
 
 type Client struct {
-
 }
 
 func NewClient() *Client {
 	return *Client{}
 }
-
 
 type GoogleResponse struct {
 	Kind    string `json:"kind"`
@@ -47,7 +41,7 @@ type Data struct {
 	NewHash    int64  `json:"new_hash"`
 }
 
-func (c *Client)GetGoogleSUrl(originalUrl string, apikey string) (string, error) {
+func (c *Client) GetGoogleSUrl(originalUrl string, apikey string) (string, error) {
 	var jsonStr = []byte(`{"longUrl":"` + originalUrl + `"}`)
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
@@ -70,7 +64,7 @@ func (c *Client)GetGoogleSUrl(originalUrl string, apikey string) (string, error)
 	return res.Id, nil
 }
 
-func (c *Client)GetBitlySUrl(originalUrl string, apikey string) (string, error) {
+func (c *Client) GetBitlySUrl(originalUrl string, apikey string) (string, error) {
 	req, err := http.NewRequest("GET", BITLY_URL+"?access_token="+apikey+"&longUrl="+originalUrl, nil)
 	if err != nil {
 		return "", err
