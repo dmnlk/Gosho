@@ -14,4 +14,4 @@ see example/gosho_example.go
 ## Support short URl
 - goo.gl
 - bit.ly
-
+- ux.nu

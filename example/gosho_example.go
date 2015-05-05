@@ -33,6 +33,13 @@ func main() {
 		fmt.Println("bitly short url:" + surl)
 	}
 
+	surl, err := client.GetUxnuUrl(originalUrl)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	fmt.Println("ux.nushort url:" + surl)
+
 }
 
 func getBitlyAPIKey() string {
