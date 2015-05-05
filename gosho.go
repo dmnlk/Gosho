@@ -42,6 +42,12 @@ type Data struct {
 	NewHash    int64  `json:"new_hash"`
 }
 
+type UxnuResponse struct {
+	StatusCode int64  `json:status_code`
+	Data       Data   `json:data`
+}
+
+
 func (c Client) GetGoogleSUrl(originalUrl string, apikey string) (string, error) {
 	var jsonStr = []byte(`{"longUrl":"` + originalUrl + `"}`)
 	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
@@ -80,6 +86,26 @@ func (c Client) GetBitlySUrl(originalUrl string, apikey string) (string, error) 
 
 	val, err := ioutil.ReadAll(resp.Body)
 	var res BitlyResponse
+	json.Unmarshal(val, &res)
+
+	return res.Data.Url, nil
+}
+
+func (c Client) GetUxnuUrl(originalUrl string) (string, error) {
+	req, err := http.NewRequest("GET", UXNU_URL+"?url="+originalUrl, nil)
+	if err != nil {
+		return "", err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	val, err := ioutil.ReadAll(resp.Body)
+	var res UxnuResponse
 	json.Unmarshal(val, &res)
 
 	return res.Data.Url, nil
