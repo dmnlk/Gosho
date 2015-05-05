@@ -12,6 +12,7 @@ import (
 const (
 	API_URL   = "https://www.googleapis.com/urlshortener/v1/url"
 	BITLY_URL = "https://api-ssl.bitly.com/v3/shorten"
+	UXNU_URL = "http://ux.nu/api/short"
 )
 
 type Client struct {
