@@ -4,5 +4,9 @@ import (
 	"testing"
 )
 
+func TestNewClient(t *testing.T) {
+	//client := NewClient()
 
-func Test
+	t.Errorf("fail test")
+
+}
