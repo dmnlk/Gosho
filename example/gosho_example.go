@@ -15,7 +15,8 @@ func main() {
 
 	gapikey := getGoogleAPIKey()
 	if len(gapikey) != 0 {
-		surl, err := client.GetGoogleSUrl(originalUrl, gapikey)
+		client.GoogleApiKey = gapikey
+		surl, err := client.GetGoogleSUrl(originalUrl)
 		if err != nil {
 			log.Fatal(err)
 			return

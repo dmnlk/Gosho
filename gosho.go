@@ -12,10 +12,12 @@ import (
 const (
 	API_URL   = "https://www.googleapis.com/urlshortener/v1/url"
 	BITLY_URL = "https://api-ssl.bitly.com/v3/shorten"
-	UXNU_URL = "http://ux.nu/api/short"
+	UXNU_URL  = "http://ux.nu/api/short"
 )
 
 type Client struct {
+	GoogleApiKey string
+	BitlyApiKey  string
 }
 
 func NewClient() Client {
@@ -43,14 +45,13 @@ type Data struct {
 }
 
 type UxnuResponse struct {
-	StatusCode int64  `json:status_code`
-	Data       Data   `json:data`
+	StatusCode int64 `json:status_code`
+	Data       Data  `json:data`
 }
 
-
-func (c Client) GetGoogleSUrl(originalUrl string, apikey string) (string, error) {
+func (c Client) GetGoogleSUrl(originalUrl string) (string, error) {
 	var jsonStr = []byte(`{"longUrl":"` + originalUrl + `"}`)
-	req, err := http.NewRequest("POST", API_URL+"?key="+apikey, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", API_URL+"?key="+c.GoogleApiKey, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		return "", err
