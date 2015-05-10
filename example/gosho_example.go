@@ -26,7 +26,8 @@ func main() {
 
 	bapikey := getBitlyAPIKey()
 	if len(bapikey) != 0 {
-		surl, err := client.GetBitlySUrl(originalUrl, bapikey)
+		client.BitlyApiKey = bapikey
+		surl, err := client.GetBitlySUrl(originalUrl)
 		if err != nil {
 			log.Fatal(err)
 			return

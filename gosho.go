@@ -72,8 +72,8 @@ func (c Client) GetGoogleSUrl(originalUrl string) (string, error) {
 	return res.Id, nil
 }
 
-func (c Client) GetBitlySUrl(originalUrl string, apikey string) (string, error) {
-	req, err := http.NewRequest("GET", BITLY_URL+"?access_token="+apikey+"&longUrl="+originalUrl, nil)
+func (c Client) GetBitlySUrl(originalUrl string) (string, error) {
+	req, err := http.NewRequest("GET", BITLY_URL+"?access_token="+c.BitlyApiKey+"&longUrl="+originalUrl, nil)
 	if err != nil {
 		return "", err
 	}
