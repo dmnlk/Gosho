@@ -40,7 +40,7 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-	fmt.Println("ux.nushort url:" + surl)
+	fmt.Println("ux.nu short url:" + surl)
 
 }
 
