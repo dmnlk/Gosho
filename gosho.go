@@ -50,6 +50,14 @@ type UxnuResponse struct {
 	Data       Data  `json:data`
 }
 
+type NazrResponse struct {
+	d62 string `json:"d62"`
+	originalUrl string `json:"original_url"`
+	createdAt string `json:"created_at"`
+	url string `json:"url"`
+
+}
+
 func (c Client) GetGoogleSUrl(originalUrl string) (string, error) {
 	var jsonStr = []byte(`{"longUrl":"` + originalUrl + `"}`)
 	req, err := http.NewRequest("POST", API_URL+"?key="+c.GoogleApiKey, bytes.NewBuffer(jsonStr))
