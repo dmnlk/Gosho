@@ -120,3 +120,23 @@ func (c Client) GetUxnuUrl(originalUrl string) (string, error) {
 
 	return res.Data.Url, nil
 }
+
+func (c Client) GetNazrUrl(originalUrl string) (string, error) {
+	req, err := http.NewRequest("GET", NAZR_URL+"?url="+originalUrl, nil)
+	if err != nil {
+		return "", err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	val, err := ioutil.ReadAll(resp.Body)
+	var res NazrResponse
+	json.Unmarshal(val, &res)
+
+	return res.Data.Url, nil
+}
