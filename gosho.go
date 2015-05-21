@@ -51,10 +51,10 @@ type UxnuResponse struct {
 }
 
 type NazrResponse struct {
-	d62 string `json:"d62"`
-	originalUrl string `json:"original_url"`
-	createdAt string `json:"created_at"`
-	url string `json:"url"`
+	D62 string `json:"d62"`
+	OriginalUrl string `json:"original_url"`
+	CreatedAt string `json:"created_at"`
+	Url string `json:"url"`
 
 }
 
@@ -138,5 +138,5 @@ func (c Client) GetNazrUrl(originalUrl string) (string, error) {
 	var res NazrResponse
 	json.Unmarshal(val, &res)
 
-	return res.url, nil
+	return res.Url, nil
 }
