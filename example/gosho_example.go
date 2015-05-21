@@ -42,6 +42,13 @@ func main() {
 	}
 	fmt.Println("ux.nu short url:" + surl)
 
+	nurl, err := client.GetNazrUrl(originalUrl)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	fmt.Println("nazr.in short url:" + nurl)
+
 }
 
 func getBitlyAPIKey() string {
