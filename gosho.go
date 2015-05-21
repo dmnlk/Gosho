@@ -138,5 +138,5 @@ func (c Client) GetNazrUrl(originalUrl string) (string, error) {
 	var res NazrResponse
 	json.Unmarshal(val, &res)
 
-	return res.Data.Url, nil
+	return res.url, nil
 }
