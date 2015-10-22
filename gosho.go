@@ -23,7 +23,9 @@ type Client struct {
 }
 
 func NewClient() Client {
-	return Client{}
+	c := Client{}
+	c.c = http.DefaultClient
+	return c
 }
 
 type GoogleResponse struct {
