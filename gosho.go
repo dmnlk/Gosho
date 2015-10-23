@@ -19,6 +19,7 @@ const (
 type Client struct {
 	GoogleApiKey string
 	BitlyApiKey  string
+	c* http.Client
 }
 
 func NewClient() Client {
