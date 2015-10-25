@@ -69,8 +69,8 @@ func (c Client) GetGoogleSUrl(originalUrl string) (string, error) {
 		return "", err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+
+	resp, err := c.c.Do(req)
 	if err != nil {
 		return "", err
 	}
@@ -110,8 +110,7 @@ func (c Client) GetUxnuUrl(originalUrl string) (string, error) {
 		return "", err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.c.Do(req)
 	if err != nil {
 		return "", err
 	}
