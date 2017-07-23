@@ -124,7 +124,7 @@ func (c Client) GetUxnuUrl(originalUrl string) (string, error) {
 }
 
 func (c Client) GetNazrUrl(originalUrl string) (string, error) {
-	req, err := http.NewRequest("GET", NAZR_URL+"?url="+originalUrl, nil)
+	req, err := http.NewRequest("POST", NAZR_URL+"?url="+originalUrl, nil)
 	if err != nil {
 		return "", err
 	}
